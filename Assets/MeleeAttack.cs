@@ -20,34 +20,29 @@ public class MeleeAttack : MonoBehaviour
     {
         weaponCollider.enabled = true;
         transform.localPosition = rightAttackOffset;
-        Debug.Log("attackright");
     }
 
     public void AttackLeft()
     {
         weaponCollider.enabled = true;
         transform.localPosition = new Vector2(rightAttackOffset.x * -1, rightAttackOffset.y);
-        Debug.Log("attackleft");
     }
 
     public void StopAttack()
     {
         weaponCollider.enabled = false;
-        Debug.Log("stop attack");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            HealthManager enemy = other.GetComponent<HealthManager>();
             if (enemy != null)
             {
                 Vector3 parentPosition = transform.parent.position;
                 Vector3 weaponPosition = other.gameObject.transform.position;
                 Vector2 knockbackDir = (Vector2)(weaponPosition - parentPosition).normalized;
-                Debug.Log(parentPosition);
-                Debug.Log(weaponPosition);
                 enemy.TakeDamage(damage, knockbackDir * knockbackMag);
             }
         }

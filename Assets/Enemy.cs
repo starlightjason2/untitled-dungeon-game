@@ -4,43 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Rigidbody2D rb;
-    public float health;
-    public float Health
+    public float damage = 1;
+    public float knockbackMag = 500;
+
+    void OnCollisionEnter2D(Collision2D other)
     {
-        set
+        Collider2D collider = other.collider;
+        if (collider.tag == "Player")
         {
-            health = value;
-            if (health <= 0)
-            {
-                Defeated();
-            }
+            HealthManager playerHealthManager = collider.GetComponent<HealthManager>();
+            Vector3 playerPosition = collider.gameObject.transform.position;
+            Vector2 knockbackDir = (Vector2)(playerPosition - transform.position).normalized;
+            playerHealthManager.TakeDamage(damage, knockbackDir * knockbackMag);
         }
-        get
-        {
-            return health;
-        }
-    }
-
-    public void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    public void TakeDamage(float damage, Vector2 knockbackForce)
-    {
-        rb.AddForce(knockbackForce);
-        Debug.Log("knockbackForce " + knockbackForce);
-        Health -= damage;
-    }
-
-    public void Defeated()
-    {
-        Destroy(gameObject);
-    }
-
-    public void OnCollisonEnter2D(Collider2D other)
-    {
-        Debug.Log(other.tag);
     }
 }

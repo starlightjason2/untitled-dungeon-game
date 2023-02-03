@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 1f;
+    public float idleFriction = 0.9f;
+    public float maxSpeed = 5f;
     public ContactFilter2D movementFilter;
     public float collisionOffset = 0.05f;
     public MeleeAttack meleeAttack;
@@ -66,19 +68,14 @@ public class PlayerController : MonoBehaviour
     private bool TryMove(Vector2 dir)
     {
         if (dir == Vector2.zero) return false;
-        int count = rb.Cast(dir,
-            movementFilter,
-            castCollisions,
-            moveSpeed * Time.fixedDeltaTime + collisionOffset);
-        if (count == 0)
+        rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
+
+        if (rb.velocity.magnitude > maxSpeed)
         {
-            rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
-            return true;
+            float limitedSpeed = Mathf.Lerp(rb.velocity.magnitude, maxSpeed, idleFriction);
+            rb.velocity = rb.velocity.normalized * limitedSpeed;
         }
-        else
-        {
-            return false;
-        }
+        return true;
     }
 
     void OnMove(InputValue movementValue)
@@ -118,5 +115,4 @@ public class PlayerController : MonoBehaviour
     {
         canMove = true;
     }
-
 }
