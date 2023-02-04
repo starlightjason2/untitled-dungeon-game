@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 6877361779704625095}
   - component: {fileID: 6120849874878694523}
   - component: {fileID: 4205693848373006632}
+  - component: {fileID: 7574096177519850720}
+  - component: {fileID: 8694421669426916069}
   m_Layer: 0
   m_Name: Braingo
   m_TagString: Untagged
@@ -122,13 +124,13 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 2
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &6877361779704625095
 CapsuleCollider2D:
@@ -143,9 +145,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.011204183, y: 0.07099879}
-  m_Size: {x: 0.68436205, y: 0.68436205}
-  m_Direction: 0
+  m_Offset: {x: -0.003290174, y: 0.023514513}
+  m_Size: {x: 1.0167477, y: 0.8648027}
+  m_Direction: 1
 --- !u!114 &6120849874878694523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  knockbackMag: 15
+  moveSpeed: 200
+  aggroZone: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!114 &4205693848373006632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,4 +177,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae7166581a6c0c43a10b12b20300574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
+  health: 3
+--- !u!114 &7574096177519850720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971323011308946602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d66546d5095434b86b43a7cfaaa33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagTarget: Player
+  detectedObjs: []
+  col: {fileID: 0}
+--- !u!114 &8694421669426916069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971323011308946602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f84149286f5a34aa920ac62e6a9d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 2286168635381526138, guid: 672dfef447512d84eb3ddca38f53c7eb, type: 3}
+  bulletPos: {fileID: 0}
+  aggroZone: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator animator;
     public float health;
     public float Health
     {
@@ -13,7 +14,12 @@ public class HealthManager : MonoBehaviour
             health = value;
             if (health <= 0)
             {
-                Defeated();
+                animator.SetTrigger("death");
+            }
+            else
+            {
+                animator.SetTrigger("hit");
+
             }
         }
         get
@@ -25,6 +31,8 @@ public class HealthManager : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
     }
 
     public void TakeDamage(float damage, Vector2 knockbackForce)
@@ -35,6 +43,14 @@ public class HealthManager : MonoBehaviour
 
     public void Defeated()
     {
-        Destroy(gameObject);
+        PlayerController playerController = GetComponent<PlayerController>();
+        if (playerController)
+        {
+            playerController.Death();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

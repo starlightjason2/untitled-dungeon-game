@@ -37,13 +37,13 @@ public class MeleeAttack : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            HealthManager enemy = other.GetComponent<HealthManager>();
-            if (enemy != null)
+            HealthManager enemyHealthManager = other.GetComponent<HealthManager>();
+            if (enemyHealthManager != null)
             {
                 Vector3 parentPosition = transform.parent.position;
                 Vector3 weaponPosition = other.gameObject.transform.position;
                 Vector2 knockbackDir = (Vector2)(weaponPosition - parentPosition).normalized;
-                enemy.TakeDamage(damage, knockbackDir * knockbackMag);
+                enemyHealthManager.TakeDamage(damage, knockbackDir * knockbackMag);
             }
         }
     }

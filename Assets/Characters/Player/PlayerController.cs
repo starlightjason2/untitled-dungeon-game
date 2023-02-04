@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1f;
     public float idleFriction = 0.9f;
     public float maxSpeed = 5f;
-    public ContactFilter2D movementFilter;
-    public float collisionOffset = 0.05f;
+    public bool targetable = true;
     public MeleeAttack meleeAttack;
+
 
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
@@ -114,5 +114,11 @@ public class PlayerController : MonoBehaviour
     public void UnlockMovement()
     {
         canMove = true;
+    }
+
+    public void Death()
+    {
+        canMove = false;
+        targetable = false;
     }
 }
